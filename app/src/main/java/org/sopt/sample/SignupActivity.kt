@@ -13,7 +13,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnSignupfinish.setOnClickListener {
-            val intent = Intent(this, SigninActivity::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             if (binding.edtIdEnter.text.length > 6 || binding.edtIdEnter.text.length < 10 && binding.edtPasswordEnter.text.length > 8 || binding.edtPasswordEnter.text.length < 12) {
                 intent.putExtra("userId", binding.edtIdEnter.text.toString())
                 intent.putExtra("userPassword", binding.edtPasswordEnter.text.toString())

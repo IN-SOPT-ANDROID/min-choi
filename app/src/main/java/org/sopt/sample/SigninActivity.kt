@@ -22,6 +22,7 @@ class SigninActivity : AppCompatActivity() {
         }
         registerSignup()
         clickbtnSignup()
+        clickbtnLogin()
     }
 
     private fun registerSignup() {
@@ -37,9 +38,19 @@ class SigninActivity : AppCompatActivity() {
     }
 
     private fun clickbtnSignup() {
-        binding.btnSignup.setOnClickListener { val intent = Intent(this, SignupActivity::class.java)
-            resultLauncher.launch(intent) }
+        binding.btnSignup.setOnClickListener {
+            val intent = Intent(this, SignupActivity::class.java)
+            resultLauncher.launch(intent)
+        }
     }
+
+    private fun clickbtnLogin() {
+        binding.btnLogin.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            Snackbar.make(binding.root,"로그인 성공",Snackbar.LENGTH_SHORT).show()
+            finish()
+        }
+    }
+
 }
-
-
