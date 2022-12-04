@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import org.sopt.sample.data.RequestLogin
@@ -16,6 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SigninActivity : AppCompatActivity() {
+    private val viewModel by viewModels<LoginViewModel>()
     private lateinit var binding: ActivitySigninBinding
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +55,17 @@ class SigninActivity : AppCompatActivity() {
 
     private fun clickbtnLogin() {
         binding.btnLogin.setOnClickListener {
+            viewModel.isCompletedLogIn.observe(this) { isCompleted ->
+                if (isCompleted) {
+                    Snackbar.make(binding.root, "로그인 성공", Snackbar.LENGTH_SHORT).show()
+
+                } else {
+                    Snackbar.make(binding.root, "로그인 실패", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+
+
+
 //            val intent = Intent(this, HomeActivity::class.java)
 //            startActivity(intent)
 //            Snackbar.make(binding.root,"로그인 성공",Snackbar.LENGTH_SHORT).show()
@@ -70,10 +83,11 @@ class SigninActivity : AppCompatActivity() {
                     response: Response<ResponseLogin>
                 ) {
                 }
+
                 override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
                     Toast.makeText(this@SigninActivity, "에러 발생", Toast.LENGTH_SHORT).show()
                 }
-                })
+            })
         }
     }
 
